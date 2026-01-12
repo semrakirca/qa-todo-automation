@@ -42,6 +42,13 @@ Page Object Model
 
 HTML Test Reports
 
+## ✅ What this project proves
+
+- I can build a maintainable UI automation framework using **POM**
+- I can organize tests using **pytest markers** (smoke/regression)
+- I can generate and share **HTML reports**
+- I can run tests via **Makefile commands**
+
 🧪 Test Types
 Smoke Tests
 
@@ -92,6 +99,10 @@ Markers (smoke, regression) for test grouping
 Fixtures for browser and test setup
 
 Assertions to validate application behavior
+
+## ⚠️ Notes
+
+The demo app used for testing is a public sample (TodoMVC). Test expectations are aligned with the demo behavior.
 
 👩‍💻 Author
 
