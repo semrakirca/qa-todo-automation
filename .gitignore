@@ -1,0 +1,15 @@
+cat > .gitignore << 'EOF'
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Playwright artifacts
+playwright-report/
+test-results/
+
+# Reports
+report.html
+EOF
