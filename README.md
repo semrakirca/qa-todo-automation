@@ -1,3 +1,5 @@
+[![CI](https://github.com/semrakirca/qa-todo-automation/actions/workflows/tests.yml/badge.svg)](https://github.com/semrakirca/qa-todo-automation/actions/workflows/tests.yml)
+
 🧪 QA Todo Automation Project
 
 This project is a QA Automation framework built with Pytest + Playwright to test a real Todo web application.
@@ -90,6 +92,12 @@ pytest -v --html=report.html --self-contained-html
 
 Open report.html in a browser to see detailed results.
 
+### Run headed (visible browser) locally
+
+```bash
+PW_HEADLESS=0 PW_SLOWMO=300 pytest -v -m smoke
+
+
 🧠 QA Concepts Demonstrated
 
 Page Object Model for maintainable UI automation
@@ -109,3 +117,4 @@ The demo app used for testing is a public sample (TodoMVC). Test expectations ar
 Semra K.
 Junior QA Automation Engineer
 Python • Pytest • Playwright • UI Automation
+```
