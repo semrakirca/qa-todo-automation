@@ -21,9 +21,15 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.fixture(scope="session")
 def browser():
+    # CI'de ekran yok → headless şart
+    # Lokal: PW_HEADLESS=0 yaparsan tarayıcı görünür
+    headless_env = os.getenv("PW_HEADLESS", "1")
+    headless = headless_env != "0"
+
+    slow_mo = int(os.getenv("PW_SLOWMO", "0"))
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=300)
-  # istersen False yapar, tarayıcıyı görürsün
+        browser = p.chromium.launch(headless=headless, slow_mo=slow_mo)
         yield browser
         browser.close()
 
@@ -33,8 +39,7 @@ def page(browser):
     context = browser.new_context()
     page = context.new_page()
 
-        # CI yavaş olabilir → timeout yükselt
-    page.set_default_timeout(60000)  # 60s
+    page.set_default_timeout(60000)
     page.set_default_navigation_timeout(60000)
 
     yield page
