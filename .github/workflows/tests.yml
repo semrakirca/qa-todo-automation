@@ -26,4 +26,9 @@ jobs:
       - name: Run smoke tests
         run: |
           pytest -v -m smoke
-
+      - name: Upload artifacts (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: artifacts

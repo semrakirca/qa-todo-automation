@@ -6,8 +6,8 @@ class TodoPage:
         self.task_input = "input.new-todo"
 
     def open(self):
-        self.page.goto(self.BASE_URL)
-        self.page.wait_for_load_state("domcontentloaded")
+        self.page.goto(self.BASE_URL, wait_until="domcontentloaded")
+        self.page.wait_for_selector(self.task_input, timeout=60000)
 
     def add_task(self, text: str):
         self.page.fill(self.task_input, text)

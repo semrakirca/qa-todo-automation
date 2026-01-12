@@ -1,8 +1,23 @@
+import os
+from datetime import datetime
 import pytest
 from playwright.sync_api import sync_playwright
 
 from pages.todo_page import TodoPage
 
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+
+    if rep.when == "call" and rep.failed:
+        page = item.funcargs.get("page")
+        if page:
+            os.makedirs("artifacts", exist_ok=True)
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            path = f"artifacts/{item.name}_{ts}.png"
+            page.screenshot(path=path, full_page=True)
+            print(f"\n📸 Screenshot saved: {path}")
 
 @pytest.fixture(scope="session")
 def browser():
@@ -17,6 +32,11 @@ def browser():
 def page(browser):
     context = browser.new_context()
     page = context.new_page()
+
+        # CI yavaş olabilir → timeout yükselt
+    page.set_default_timeout(60000)  # 60s
+    page.set_default_navigation_timeout(60000)
+
     yield page
     context.close()
 
